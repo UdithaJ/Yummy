@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%" class="flexcard">
+  <v-card class="flexcard">
     <v-toolbar
         color="transparent"
         dark
@@ -25,7 +25,18 @@
       ></v-text-field>
     </v-toolbar>
   </v-card>
+  <v-container v-if="searchKey === ''">
+    <v-card
+        color="transparent"
+    height="400px">
 
+
+      <v-img
+          :src="require('@/assets/images/default.png')"
+      >
+      </v-img>
+    </v-card>
+  </v-container>
   <v-container>
     <v-row v-if="foods.length !== 0"
            no-gutters
@@ -107,11 +118,14 @@ export default {
   },
   methods: {
     getFoods() {
-      if (this.searchKey !== '') {
+      if (this.searchKey !== '' || this.searchKey === null) {
         axios.get('https://www.themealdb.com/api/json/v1/1/search.php?s=' + this.searchKey).then(response => {
           this.foods = response.data.meals
-          console.log(this.foods)
+
         })
+      }
+      else {
+        this.foods = [];
       }
     },
     getLatestFoods() {
@@ -130,7 +144,7 @@ export default {
     }
   },
   mounted() {
-    this.getLatestFoods();
+    // this.getLatestFoods();
   }
 }
 </script>

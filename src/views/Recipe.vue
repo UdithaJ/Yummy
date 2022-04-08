@@ -2,7 +2,12 @@
 <HeaderCard/>
   <v-container>
 <v-card>
-  <v-card-title>{{meal.strMeal}}</v-card-title>
+  <v-toolbar style="margin-bottom: 25px;">
+    <v-toolbar-title>
+      {{meal.strMeal}}
+    </v-toolbar-title>
+  </v-toolbar>
+<!--  <v-card-title>{{meal.strMeal}}</v-card-title>-->
 <v-row style="margin-bottom: 5px;">
     <v-img style="margin-left: 20px"
         :src="meal.strMealThumb"
@@ -44,15 +49,19 @@ export default {
 
   data(){
     return{
-      ingredients: []
+      ingredients: [],
     }
   },
   computed:{
     meal(){
-      return this.$store.meal;
+        return this.$store.meal;
     }
   },
   mounted() {
+    console.log(this.$store.meal)
+    // if (this.$store.meal){
+    //   this.meal = this.$store.meal;
+    // }
     let value = 1;
     for (const ingredient in this.meal) {
       console.log(ingredient);
